@@ -9,20 +9,30 @@ from django.utils.decorators import method_decorator
 from django.utils.safestring import mark_safe
 from django.utils.html import escape
 from django.core.exceptions import ObjectDoesNotExist
-from django.views.generic import TemplateView
-from django.views.generic import DetailView
+from django.views.generic import TemplateView, DetailView, CreateView
 from django.views.decorators.csrf import csrf_exempt
-from django.http import HttpResponse, Http404
+from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.contrib.sites.models import Site
 
 from paste.models import Paste
+from paste.forms import PasteForm
+
 from apikeys.models import Key
 
 PASTE_KEY = 'paste'
 
-class IndexView(TemplateView):
-    template_name = 'paste/index.html'
+class AddPasteView(CreateView):
+    template_name = 'paste/paste.html'
+    form_class = PasteForm
 
+    def form_valid(self, form):
+        obj = form.save(commit=False)
+        obj.author = self.request.user
+        obj.save()
+
+        return HttpResponseRedirect(obj.get_absolute_url() + '?' + form.cleaned_data.get('lexer'))
+
+class IndexView(AddPasteView):
     @method_decorator(csrf_exempt)
     def dispatch(self, *args, **kwargs):
         return super(IndexView, self).dispatch(*args, **kwargs)
@@ -39,13 +49,13 @@ class IndexView(TemplateView):
         if PASTE_KEY not in request.POST:
             return HttpResponse('')
 
-        paste = Paste(content=request.POST[PASTE_KEY])
         paste = Paste(content=request.POST[PASTE_KEY], author=author)
         paste.save()
 
         site = Site.objects.get_current()
 
         return HttpResponse('http://%s/%s\n' % (site.domain, paste.slug))
+
 
 class PasteView(DetailView):
     model = Paste
@@ -79,7 +89,9 @@ class PasteView(DetailView):
         lexer_name = self.request.GET.keys()[0]
 
         try:
-            if lexer_name:
+            if lexer_name in ('g', 'guess'):
+                lexer = guess_lexer(self.content)
+            elif lexer_name:
                 lexer = get_lexer_by_name(lexer_name)
             else:
                 raise Exception
@@ -106,6 +118,7 @@ class PasteView(DetailView):
 
         return HttpResponse(self.content, content_type='text/plain; charset=UTF-8')
 
+
 class DiffMixin(object):
     def get_content(self):
         a = self.get_object('a')
@@ -118,5 +131,7 @@ class DiffMixin(object):
 
         return '\n'.join(d)
 
+
 class DiffView(DiffMixin, PasteView):
     pass
+

@@ -17,6 +17,9 @@ class Paste(models.Model):
     def __unicode__(self):
         return self.slug
 
+    def get_absolute_url(self):
+        return '/' + self.slug
+
     def save(self, *args, **kwargs):
         if not self.pk:
             if not self.slug:
