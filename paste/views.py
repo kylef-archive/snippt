@@ -10,6 +10,11 @@ try:
 except ImportError:
     Markdown = False
 
+try:
+    from docutils.core import publish_parts
+except ImportError:
+    publish_parts = False
+
 from django.utils.decorators import method_decorator
 from django.utils.safestring import mark_safe
 from django.utils.html import escape
@@ -92,8 +97,12 @@ class PasteView(DetailView):
     def get_processed_content(self):
         self.lexer_name = self.request.GET.keys()[0].lower()
 
-        if bool(Markdown) and self.lexer_name in ('markdown', 'md'):
+        if Markdown and self.lexer_name in ('markdown', 'md'):
             return mark_safe(Markdown(safe_mode=True, extensions=('codehilite',)).convert(self.content))
+
+        if publish_parts and self.lexer_name == 'rrst':
+            parts = publish_parts(source=self.content, writer_name="html4css1")
+            return mark_safe(parts["fragment"])
 
         try:
             if self.lexer_name in ('g', 'guess'):
