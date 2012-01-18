@@ -5,6 +5,11 @@ from pygments import highlight
 from pygments.lexers import *
 from pygments.formatters import HtmlFormatter
 
+try:
+    from markdown import Markdown
+except ImportError:
+    Markdown = False
+
 from django.utils.decorators import method_decorator
 from django.utils.safestring import mark_safe
 from django.utils.html import escape
@@ -63,10 +68,9 @@ class PasteView(DetailView):
     def get_context_data(self, **kwargs):
         context = super(PasteView, self).get_context_data(**kwargs)
         context['content'] = self.content
-        context['pygmented'] = self.get_pygmented()
-        context['lexer'] = self.lexer
+        context['processed_content'] = self.get_processed_content()
+        context['lexer'] = self.lexer_name
 
-        print context['pygmented']
         return context
 
     def get_object(self, slug_field='slug'):
@@ -85,14 +89,17 @@ class PasteView(DetailView):
     def get_content(self):
         return self.get_object().content
 
-    def get_lexer(self):
-        lexer_name = self.request.GET.keys()[0]
+    def get_processed_content(self):
+        self.lexer_name = self.request.GET.keys()[0].lower()
+
+        if bool(Markdown) and self.lexer_name in ('markdown', 'md'):
+            return mark_safe(Markdown(safe_mode=True, extensions=('codehilite',)).convert(self.content))
 
         try:
-            if lexer_name in ('g', 'guess'):
+            if self.lexer_name in ('g', 'guess'):
                 lexer = guess_lexer(self.content)
-            elif lexer_name:
-                lexer = get_lexer_by_name(lexer_name)
+            elif self.lexer_name:
+                lexer = get_lexer_by_name(self.lexer_name)
             else:
                 raise Exception
         except:
@@ -100,13 +107,9 @@ class PasteView(DetailView):
                 lexer = guess_lexer(self.content)
             except:
                 lexer = PythonLexer()
-        return lexer
-
-    def get_pygmented(self):
-        self.lexer = self.get_lexer()
 
         try:
-            return mark_safe(highlight(self.content,  self.lexer, HtmlFormatter()))
+            return mark_safe(highlight(self.content,  lexer, HtmlFormatter()))
         except:
             return escape(self.content)
 
