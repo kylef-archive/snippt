@@ -8,9 +8,13 @@ from pygments.formatters import HtmlFormatter
 from django.utils.safestring import mark_safe
 from django.utils.html import escape
 from django.core.exceptions import ObjectDoesNotExist
+from django.views.generic import TemplateView
 from django.views.generic import DetailView
 from django.http import HttpResponse, Http404
 from paste.models import Paste
+
+class IndexView(TemplateView):
+    template_name = 'paste/index.html'
 
 class PasteView(DetailView):
     model = Paste
