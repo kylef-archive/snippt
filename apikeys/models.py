@@ -27,7 +27,7 @@ class Key(models.Model):
         except NotImplementedError:
             pass
 
-        self.key = hashlib.sha1(''.join([random.choice(allowed_chars) for i in range(length)])).hexdigest()
+        self.key = hashlib.sha1(''.join([random.choice(allowed_chars) for i in range(length)])).hexdigest()[32:]
 
 
 admin.site.register(Key)
