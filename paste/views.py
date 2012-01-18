@@ -16,6 +16,7 @@ from django.http import HttpResponse, Http404
 from django.contrib.sites.models import Site
 
 from paste.models import Paste
+from apikeys.models import Key
 
 PASTE_KEY = 'paste'
 
@@ -27,10 +28,19 @@ class IndexView(TemplateView):
         return super(IndexView, self).dispatch(*args, **kwargs)
 
     def post(self, request, *args, **kwargs):
+        author = None
+
+        if 'api' in request.GET:
+            try:
+                author = Key.objects.get(key=request.GET['api']).user
+            except ObjectDoesNotExist:
+                pass
+
         if PASTE_KEY not in request.POST:
             return HttpResponse('')
 
         paste = Paste(content=request.POST[PASTE_KEY])
+        paste = Paste(content=request.POST[PASTE_KEY], author=author)
         paste.save()
 
         site = Site.objects.get_current()
