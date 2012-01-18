@@ -2,6 +2,6 @@ from django.contrib import admin
 from paste.models import Paste
 
 class PasteAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('slug', 'author')
 
 admin.site.register(Paste, PasteAdmin)
