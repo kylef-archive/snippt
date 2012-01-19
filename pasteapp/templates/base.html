@@ -1,0 +1,18 @@
+<html>
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8">
+        <title>{% block title %}Paste{% endblock %}</title>
+        <link rel="stylesheet" href="{{ STATIC_URL }}screen.css" type="text/css" media="screen" charset="utf-8">
+        <link rel="stylesheet" href="{{ STATIC_URL }}pygments.css" type="text/css" media="all" charset="utf-8">
+    </head>
+
+    <body id="{% block head %}{% endblock %}">
+        <section>
+            {% block content %}{% endblock %}
+        </section>
+
+        <aside>
+            {% block sidebar %}{% endblock %}
+        </aside>
+    </body>
+</html>

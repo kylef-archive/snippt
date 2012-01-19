@@ -1,0 +1,91 @@
+article, aside, details, figcaption, figure, footer, header, hgroup, nav, section { display: block; }
+html {overflow-y: scroll;}
+
+body {
+    color: #323232;
+    font-weight:500; font-style:normal;
+    font-family: Myriad Pro;
+    margin: 0;
+    padding: 0;
+}
+
+::selection { background: #245d85; color: #fff; text-shadow: none; }
+
+section {
+    padding: 15px;
+    width: 75%;
+    min-width: 700px;
+    overflow: scroll;
+    float: left;
+    padding-top: 0;
+}
+
+aside {
+    width: 20%;
+    min-width: 200px;
+    background: #ddd;
+    margin-left: 80%;
+
+    min-height: 100%;
+    height: 100%;
+
+    position: absolute;
+    position: fixed;
+    top: 0; bottom: 0;
+
+    padding: 10px;
+    padding-top: 0;
+    border-left: 1px solid #ccc;
+}
+
+#paste section {
+    width: 700px;
+}
+
+#paste aside {
+    margin-left: 720px;
+    width: 100%;
+}
+
+aside ul {
+    list-style: none; list-style-image: none; margin: 0; padding: 0;
+}
+
+table, table td, table th {
+    border: 0;
+    margin: 0;
+}
+
+table {
+    margin: 1em 0 !important;
+}
+
+table th {
+    border-bottom: 1px solid #bbb !important;
+    padding: .2em 1em !important;
+}
+
+table td {
+    border-bottom: 1px solid #ddd !important;
+    padding: .2em 1em !important;
+}
+
+/* forms */
+form { padding: 10px; }
+form p { margin-bottom: 10px; font-size: 12px; }
+form fieldset { margin: 0; padding: 0; }
+form p label { float: left; padding-right: 10px; width: 100px; font-weight: bold; text-align: right; }
+form p input { padding: 4px; width: 200px; font-size: 14px; border: 1px solid #eee; }
+form p textarea { padding: 4px; width: 500px; height: 300px; font-size: 14px; border: 1px solid #ddd; }
+form p input:hover { border: 1px solid #245d85; }
+form p textarea:hover { border: 1px solid #245d85; }
+form input { margin-left: 113px; }
+label {
+    font-size: 14px;
+}
+textarea { overflow: auto; vertical-align: top; resize: vertical; }
+button::-moz-focus-inner, input::-moz-focus-inner { border: 0; padding: 0; }
+
+.errorlist {
+    color: #ab2a2a;
+}

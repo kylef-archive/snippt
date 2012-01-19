@@ -1,13 +1,46 @@
-<html>
-    <head>
-        <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    
-        <title></title>
-        <link rel="stylesheet" href="{{ STATIC_URL }}default.css" type="text/css" media="screen" charset="utf-8">
-    </head>
-    <body>
-        <a href="/{{ object.slug }}" style="float: right;">Raw</a>
+{% extends "base.html" %}
 
-        {{ processed_content }}
-    </body>
-</html>
+{% block content %}
+    {{ processed_content }}
+{% endblock %}
+
+{% block sidebar %}
+    <h3>Snippet {{ object }}</h3>
+
+    <ul>
+      {% if object.author %}
+        <li>By {{ object.author }}</li>
+      {% endif %}
+
+      {% if object.published %}
+        <li>Published: {{ object.published }}</li>
+      {% endif %}
+
+      {% if object.expires %}
+        <li>Expires: {{ object.expires }}</li>
+      {% endif %}
+    </ul>
+
+    <h3>View Options</h3>
+
+    <ul>
+        <li><a href="/{{ object.slug }}">Raw</a></li>
+
+      {% ifequal lexer "rrst" %}
+        <li><a href="/{{ object.slug }}?rst">RST Syntax</a></li>
+      {% endifequal %}
+
+      {% ifequal lexer "rst" %}
+        <li><a href="/{{ object.slug }}?rrst">Render RST</a></li>
+      {% endifequal %}
+    </ul>
+
+    {% if a %}
+        <h3>Diff</h3>
+
+        <ul>
+            <li><a href="{{ a.get_absolute_url }}?g">{{ a }}</a></li>
+            <li><a href="{{ b.get_absolute_url }}?g">{{ b }}</a></li>
+        </ul>
+    {% endif %}
+{% endblock %}

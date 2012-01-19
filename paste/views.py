@@ -133,14 +133,20 @@ class PasteView(DetailView):
 
 
 class DiffMixin(object):
+    def get_context_data(self, **kwargs):
+        context = super(DiffMixin, self).get_context_data(**kwargs)
+        context['a'] = self.a
+        context['b'] = self.b
+        return context
+
     def get_content(self):
-        a = self.get_object('a')
-        b = self.get_object('b')
+        self.a = self.get_object('a')
+        self.b = self.get_object('b')
 
-        if a.content == b.content:
-            return '{} and {} are the same.'.format(self.kwargs.get('a'), self.kwargs.get('b'))
+        if self.a.content == self.b.content:
+            return '{} and {} are the same.'.format(self.a, self.b)
 
-        d = difflib.unified_diff(a.content.splitlines(), b.content.splitlines(), a.slug, b.slug, lineterm='')
+        d = difflib.unified_diff(self.a.content.splitlines(), self.b.content.splitlines(), self.a.slug, self.b.slug, lineterm='')
 
         return '\n'.join(d)
 
