@@ -1,0 +1,18 @@
+<div id="openid">
+    <h3>Sign in with OpenID <a href="http://openid.net/get-an-openid/what-is-openid/">What is OpenID?</a></h3>
+    <form id="openid" action="{% url socialregistration:openid:redirect %}" method="post">
+	    {% csrf_token %}
+
+    	{% if provider %}
+	    	<input type="hidden" name="openid_provider" value="{{ provider }}" />
+        {% else %}
+    	    <input type="text" id="provider" name="openid_provider" />
+        {% endif %}
+
+        {% if button %}
+        	<input type="image" onclick="this.form.submit();" src="{{ button }}" />
+        {% else %}
+    	    <input type="submit" value="Connect with OpenID" />
+        {% endif %}
+    </form>
+</div>

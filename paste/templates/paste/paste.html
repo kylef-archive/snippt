@@ -5,13 +5,20 @@
 {% block content %}
     <h1>New Snippet</h1>
 
-    <form action="/paste/" method="post">{% csrf_token %}
+    <form class="pform" action="/paste/" method="post">{% csrf_token %}
         {{ form.as_p }}
         <input type="submit" value="Share" />
     </form>
 {% endblock %}
 
 {% block sidebar %}
+  {% if request.user.is_authenticated %}
+    <a href="/social/logout/">Logout</a>
+  {% else %}
+    {% load openid %}
+    {% openid_form %}
+  {% endif %}
+
     <h3>Features</h3>
     <ul>
         <li>Render markdown and restructured text</li>

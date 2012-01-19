@@ -11,6 +11,8 @@ urlpatterns = patterns('',
     url('^(?P<slug>[\w\d]+)$', PasteView.as_view()),
     url('^(?P<a>[\w\d]+)...(?P<b>[\w\d]+)$', DiffView.as_view()),
     url('^$', IndexView.as_view()),
+    url(r'^social/', include('socialregistration.urls',
+        namespace = 'socialregistration')),
     # Examples:
     # url(r'^$', 'pasteapp.views.home', name='home'),
     # url(r'^pasteapp/', include('pasteapp.foo.urls')),

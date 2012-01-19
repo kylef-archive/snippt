@@ -114,6 +114,21 @@ TEMPLATE_DIRS = (
     os.path.join(PROJECT_DIR, 'templates'),
 )
 
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'socialregistration.contrib.openid.auth.OpenIDAuth',
+)
+
+TEMPLATE_CONTEXT_PROCESSORS = (
+    "django.contrib.auth.context_processors.auth",
+    "django.core.context_processors.debug",
+    "django.core.context_processors.i18n",
+    "django.core.context_processors.media",
+    "django.core.context_processors.static",
+    "django.core.context_processors.request",
+    "django.contrib.messages.context_processors.messages"
+)
+
 INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -128,6 +143,8 @@ INSTALLED_APPS = (
     'paste',
     'apikeys',
     'gunicorn',
+    'socialregistration',
+    'socialregistration.contrib.openid',
 )
 
 # A sample logging configuration. The only tangible logging
@@ -152,3 +169,7 @@ LOGGING = {
         },
     }
 }
+
+LOGIN_REDIRECT_URL = '/'
+LOGIN_URL = '/social/logout/'
+LOGOUT_URL = '/'

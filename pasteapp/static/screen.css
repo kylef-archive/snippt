@@ -20,6 +20,11 @@ section {
     padding-top: 0;
 }
 
+a {
+    color: #245d85;
+    text-decoration: none;
+}
+
 aside {
     width: 20%;
     min-width: 200px;
@@ -71,21 +76,34 @@ table td {
 }
 
 /* forms */
-form { padding: 10px; }
-form p { margin-bottom: 10px; font-size: 12px; }
-form fieldset { margin: 0; padding: 0; }
-form p label { float: left; padding-right: 10px; width: 100px; font-weight: bold; text-align: right; }
-form p input { padding: 4px; width: 200px; font-size: 14px; border: 1px solid #eee; }
-form p textarea { padding: 4px; width: 500px; height: 300px; font-size: 14px; border: 1px solid #ddd; }
-form p input:hover { border: 1px solid #245d85; }
-form p textarea:hover { border: 1px solid #245d85; }
-form input { margin-left: 113px; }
-label {
+form.pform { padding: 10px; }
+form.pform  p { margin-bottom: 10px; font-size: 12px; }
+form.pform  fieldset { margin: 0; padding: 0; }
+form.pform  p label { float: left; padding-right: 10px; width: 100px; font-weight: bold; text-align: right; }
+form.pform  p input { padding: 4px; width: 200px; font-size: 14px; border: 1px solid #eee; }
+form.pform  p textarea { padding: 4px; width: 500px; height: 300px; font-size: 14px; border: 1px solid #ddd; }
+form.pform  p input:hover { border: 1px solid #245d85; }
+form.pform  p textarea:hover { border: 1px solid #245d85; }
+form.pform  input { margin-left: 113px; }
+form.pform  label {
     font-size: 14px;
 }
-textarea { overflow: auto; vertical-align: top; resize: vertical; }
-button::-moz-focus-inner, input::-moz-focus-inner { border: 0; padding: 0; }
+form.pform  textarea { overflow: auto; vertical-align: top; resize: vertical; }
+form.pform  button::-moz-focus-inner, input::-moz-focus-inner { border: 0; padding: 0; }
 
 .errorlist {
     color: #ab2a2a;
+}
+
+#openid form {
+    margin-top: 10px;
+}
+
+#openid form input#provider { border: 1px solid #245d85; }
+#openid form input { font-size: 100%;}
+
+#openid h3 a {
+    font-size: 14px;
+    font-weight: normal;
+    font-style: italic;
 }
