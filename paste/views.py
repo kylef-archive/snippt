@@ -37,7 +37,8 @@ class AddPasteView(CreateView):
 
     def form_valid(self, form):
         obj = form.save(commit=False)
-        obj.author = self.request.user
+        if self.request.user.is_authenticated():
+            obj.author = self.request.user
         obj.save()
 
         return HttpResponseRedirect(obj.get_absolute_url() + '?' + form.cleaned_data.get('lexer'))
