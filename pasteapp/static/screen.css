@@ -1,6 +1,5 @@
 article, aside, details, figcaption, figure, footer, header, hgroup, nav, section { display: block; }
 html {overflow-y: scroll;}
-
 body {
     color: #323232;
     font-weight:500; font-style:normal;
@@ -9,15 +8,19 @@ body {
     padding: 0;
 }
 
+h1, h2, h3, h4, h5 {
+    margin-top: 15px;
+}
+
 ::selection { background: #245d85; color: #fff; text-shadow: none; }
 
 section {
     padding: 15px;
     width: 75%;
     min-width: 700px;
-    overflow: scroll;
     float: left;
     padding-top: 0;
+    overflow: auto;
 }
 
 a {
