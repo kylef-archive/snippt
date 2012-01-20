@@ -5,7 +5,7 @@ from django.db import models
 from django.contrib.auth.models import User
 
 
-class Paste(models.Model):
+class Snippet(models.Model):
     slug = models.CharField(max_length=32, blank=True)
     content = models.TextField()
 
@@ -30,7 +30,7 @@ class Paste(models.Model):
             if not self.author:
                 # Anonymous pastes expire in 2 weeks
                 self.expires = self.published + datetime.timedelta(weeks=2)
-        super(Paste, self).save(*args, **kwargs)
+        super(Snippet, self).save(*args, **kwargs)
 
     def generate_slug(self, length=6):
         t = 'abcdefghijkmnopqrstuvwwxyzABCDEFGHIJKLOMNOPQRSTUVWXYZ1234567890'

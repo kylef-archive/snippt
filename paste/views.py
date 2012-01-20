@@ -24,16 +24,16 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.contrib.sites.models import Site
 
-from paste.models import Paste
-from paste.forms import PasteForm
+from paste.models import Snippet
+from paste.forms import SnippetForm
 
 from apikeys.models import Key
 
 PASTE_KEY = 'paste'
 
-class AddPasteView(CreateView):
+class AddSnippetView(CreateView):
     template_name = 'paste/paste.html'
-    form_class = PasteForm
+    form_class = SnippetForm
 
     def form_valid(self, form):
         obj = form.save(commit=False)
@@ -43,7 +43,7 @@ class AddPasteView(CreateView):
 
         return HttpResponseRedirect(obj.get_absolute_url() + '?' + form.cleaned_data.get('lexer'))
 
-class IndexView(AddPasteView):
+class IndexView(AddSnippetView):
     @method_decorator(csrf_exempt)
     def dispatch(self, *args, **kwargs):
         return super(IndexView, self).dispatch(*args, **kwargs)
@@ -60,19 +60,19 @@ class IndexView(AddPasteView):
         if PASTE_KEY not in request.POST:
             return HttpResponse('')
 
-        paste = Paste(content=request.POST[PASTE_KEY], author=author)
-        paste.save()
+        snippet = Snippet(content=request.POST[PASTE_KEY], author=author)
+        snippet.save()
 
         site = Site.objects.get_current()
 
-        return HttpResponse('http://%s/%s\n' % (site.domain, paste.slug))
+        return HttpResponse('http://%s/%s\n' % (site.domain, snippet.slug))
 
 
-class PasteView(DetailView):
-    model = Paste
+class SnippetView(DetailView):
+    model = Snippet
 
     def get_context_data(self, **kwargs):
-        context = super(PasteView, self).get_context_data(**kwargs)
+        context = super(SnippetView, self).get_context_data(**kwargs)
         context['content'] = self.content
         context['processed_content'] = self.get_processed_content()
         context['lexer'] = self.lexer_name
@@ -88,7 +88,7 @@ class PasteView(DetailView):
         try:
             object = queryset.get()
         except ObjectDoesNotExist:
-            raise Http404('No paste named {}'.format(self.kwargs[slug_field]))
+            raise Http404('No snippet named {}'.format(self.kwargs[slug_field]))
 
         return object
 
@@ -127,7 +127,7 @@ class PasteView(DetailView):
         self.content = self.get_content()
 
         if len(self.request.GET):
-            return super(PasteView, self).get(request, *args, **kwargs)
+            return super(SnippetView, self).get(request, *args, **kwargs)
 
         return HttpResponse(self.content, content_type='text/plain; charset=UTF-8')
 
@@ -151,6 +151,6 @@ class DiffMixin(object):
         return '\n'.join(d)
 
 
-class DiffView(DiffMixin, PasteView):
+class DiffView(DiffMixin, SnippetView):
     pass
 

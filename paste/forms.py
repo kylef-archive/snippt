@@ -1,6 +1,6 @@
 import datetime
 from django import forms
-from paste.models import Paste
+from paste.models import Snippet
 
 EXPIRE_CHOICES = (
     (3600,       'In one hour'),
@@ -36,7 +36,7 @@ LEXER_LIST = (
 )
 LEXER_DEFAULT = 'g'
 
-class PasteForm(forms.ModelForm):
+class SnippetForm(forms.ModelForm):
     expire_options = forms.ChoiceField(
         choices=EXPIRE_CHOICES,
         initial=EXPIRE_DEFAULT,
@@ -50,7 +50,7 @@ class PasteForm(forms.ModelForm):
     )
 
     class Meta:
-        model = Paste
+        model = Snippet
         fields = ('content',)
 
     def save(self, *args, **kwargs):
@@ -58,6 +58,6 @@ class PasteForm(forms.ModelForm):
         self.instance.expires = datetime.datetime.now() + \
             datetime.timedelta(seconds=int(self.cleaned_data['expire_options']))
 
-        super(PasteForm, self).save(*args, **kwargs)
+        super(SnippetForm, self).save(*args, **kwargs)
 
         return self.instance

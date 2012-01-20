@@ -1,7 +1,7 @@
 from django.contrib import admin
-from paste.models import Paste
+from paste.models import Snippet
 
-class PasteAdmin(admin.ModelAdmin):
+class SnippetAdmin(admin.ModelAdmin):
     list_display = ('slug', 'author')
 
-admin.site.register(Paste, PasteAdmin)
+admin.site.register(Snippet, SnippetAdmin)

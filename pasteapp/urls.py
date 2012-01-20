@@ -4,11 +4,11 @@ from django.conf.urls.defaults import patterns, include, url
 from django.contrib import admin
 admin.autodiscover()
 
-from paste.views import IndexView, PasteView, DiffView, AddPasteView
+from paste.views import IndexView, SnippetView, DiffView, AddSnippetView, TemplateView
 
 urlpatterns = patterns('',
-    url('^paste/$', AddPasteView.as_view()),
-    url('^(?P<slug>[\w\d]+)$', PasteView.as_view()),
+    url('^paste/$', AddSnippetView.as_view()),
+    url('^(?P<slug>[\w\d]+)$', SnippetView.as_view()),
     url('^(?P<a>[\w\d]+)...(?P<b>[\w\d]+)$', DiffView.as_view()),
     url('^$', IndexView.as_view()),
     url(r'^social/', include('socialregistration.urls',
