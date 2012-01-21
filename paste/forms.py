@@ -46,7 +46,7 @@ class SnippetForm(forms.ModelForm):
     lexer = forms.ChoiceField(
         choices=LEXER_LIST,
         initial=LEXER_DEFAULT,
-        label='Lexer',
+        label='Syntax',
     )
 
     class Meta:
