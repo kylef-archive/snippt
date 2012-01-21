@@ -1,6 +1,30 @@
 <div id="openid">
+    <script type="text/javascript" charset="utf-8">
+        function setProvider(value) {
+            document.getElementById('provider').value = value;
+            document.openid.submit();
+        }
+    </script>
+
     <h3>Sign in with OpenID <a href="http://openid.net/get-an-openid/what-is-openid/">What is OpenID?</a></h3>
-    <form id="openid" action="{% url socialregistration:openid:redirect %}" method="post">
+
+    <a href="javascript:setProvider('https://www.google.com/accounts/o8/id')" title="Login with Google">
+        <img src="http://google.com/favicon.ico" />
+    </a>
+
+    <a href="javascript:setProvider('https://yahoo.com/')" title="Login with Yahoo">
+        <img src="http://www.yahoo.com/favicon.ico" />
+    </a>
+
+    <a href="javascript:setProvider('https://openid.yubico.com/')" title="Login with YubiKey">
+        <img src="http://static.yubico.com/images/favicon.ico" />
+    </a>
+
+    <a href="javascript:setProvider('https://openid.aol.com/')" title="Login with AOL">
+        <img src="http://www.aol.com/favicon.ico" />
+    </a>
+
+    <form id="openid" name="openid" action="{% url socialregistration:openid:redirect %}" method="post">
 	    {% csrf_token %}
 
     	{% if provider %}
