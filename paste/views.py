@@ -19,7 +19,7 @@ from django.utils.decorators import method_decorator
 from django.utils.safestring import mark_safe
 from django.utils.html import escape
 from django.core.exceptions import ObjectDoesNotExist
-from django.views.generic import TemplateView, DetailView, CreateView
+from django.views.generic import TemplateView, DetailView, CreateView, DeleteView
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.contrib.sites.models import Site
@@ -30,6 +30,17 @@ from paste.forms import SnippetForm
 from apikeys.models import Key
 
 PASTE_KEY = 'paste'
+
+class DeleteSnippetView(DeleteView):
+    success_url = '/'
+    model = Snippet
+
+    def delete(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        if self.object.author == request.user:
+            self.object.delete()
+            return HttpResponseRedirect(self.get_success_url())
+        return HttpResponseRedirect(self.object.get_absolute_url() + '?g')
 
 class AddSnippetView(CreateView):
     template_name = 'paste/paste.html'

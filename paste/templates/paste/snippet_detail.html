@@ -7,6 +7,13 @@
 {% block sidebar %}
     <h3>Snippet {{ object }}</h3>
 
+    {% ifequal object.author user %}
+      <form action="{{ object.get_absolute_url }}/delete/" method="post" accept-charset="utf-8">
+        {% csrf_token %}
+        <p><input type="submit" value="Delete snippet &rarr;"></p>
+      </form>
+    {% endifequal %}
+
     <ul>
       {% if object.author %}
         <li>By {{ object.author }}</li>
