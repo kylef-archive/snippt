@@ -13,6 +13,7 @@
 
 {% block sidebar %}
   {% if request.user.is_authenticated %}
+    <h3>Welcome {{ user }}</h3>
     <a href="/social/logout/">Logout</a>
   {% else %}
     {% load openid %}
