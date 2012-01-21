@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block head %}paste{% endblock %}
+
+{% block title %}List of supported syntax{% endblock %}
+
+{% block content %}
+    <h1>Supported Syntax</h1>
+    <ul>
+      {% for syntax in syntax_list %}
+        <li><a href="/?{{ syntax.0 }}" title="Create a snippet with {{ syntax.1 }}">{{ syntax.1 }}</a></li>
+      {% endfor %}
+    </ul>
+{% endblock %}

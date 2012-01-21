@@ -3,6 +3,7 @@ import datetime
 
 from pygments import highlight
 from pygments.lexers import *
+from pygments.lexers import get_all_lexers
 from pygments.formatters import HtmlFormatter
 
 try:
@@ -30,6 +31,17 @@ from paste.forms import SnippetForm
 from apikeys.models import Key
 
 PASTE_KEY = 'paste'
+
+class SyntaxView(TemplateView):
+    template_name = 'paste/syntax_list.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(SyntaxView, self).get_context_data(**kwargs)
+        context['syntax_list'] = sorted(
+            [(i[1][0], i[0]) for i in get_all_lexers()] +
+            [('rrst', 'Restructured Text (Rendered)'),
+             ('md', 'Markdown (Rendered)')])
+        return context
 
 class DeleteSnippetView(DeleteView):
     success_url = '/'

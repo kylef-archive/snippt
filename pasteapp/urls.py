@@ -4,10 +4,11 @@ from django.conf.urls.defaults import patterns, include, url
 from django.contrib import admin
 admin.autodiscover()
 
-from paste.views import IndexView, SnippetView, DiffView, AddSnippetView, TemplateView, DeleteSnippetView
+from paste.views import *
 
 urlpatterns = patterns('',
     url('^paste/$', AddSnippetView.as_view()),
+    url('^syntax/$', SyntaxView.as_view()),
     url('^(?P<slug>[\w\d]+)$', SnippetView.as_view()),
     url('^(?P<slug>[\w\d]+)/delete/$', DeleteSnippetView.as_view()),
     url('^(?P<a>[\w\d]+)...(?P<b>[\w\d]+)$', DiffView.as_view()),
