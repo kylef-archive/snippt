@@ -12,7 +12,23 @@
         </section>
 
         <aside>
-            {% block sidebar %}{% endblock %}
+          {% block sidebar %}
+            {% if request.user.is_authenticated %}
+              <h3>Welcome {{ user }}</h3>
+
+              {% load gravatar %}
+              <p><img src="{% gravatar user.email 50 %}" border="0" alt="" /></p>
+
+              <a href="/social/logout/">Logout</a>
+            {% else %}
+              {% load openid %}
+              {% openid_form %}
+            {% endif %}
+
+            {% block sidebar_extra %}
+
+            {% endblock %}
+          {% endblock %}
         </aside>
     </body>
 </html>

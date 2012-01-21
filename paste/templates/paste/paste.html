@@ -11,18 +11,11 @@
     </form>
 {% endblock %}
 
-{% block sidebar %}
-  {% if request.user.is_authenticated %}
-    <h3>Welcome {{ user }}</h3>
-    <a href="/social/logout/">Logout</a>
-  {% else %}
-    {% load openid %}
-    {% openid_form %}
-  {% endif %}
-
-    <h3>Features</h3>
+{% block sidebar_extra %}
+    <h3>Why use snippt?</h3>
     <ul>
         <li>Render markdown and restructured text</li>
         <li>User accounts</li>
+        <li>CLI pasting</li>
     </ul>
 {% endblock %}

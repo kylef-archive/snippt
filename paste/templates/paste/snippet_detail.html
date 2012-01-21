@@ -16,7 +16,9 @@
 
     <ul>
       {% if object.author %}
-        <li>By {{ object.author }}</li>
+        {% load gravatar %}
+        <li>By {{ object.author }}
+        <p><img src="{% gravatar user.email 50 %}" border="0" alt="" /></p></li>
       {% endif %}
 
       {% if object.published %}
