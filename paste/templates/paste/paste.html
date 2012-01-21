@@ -11,6 +11,25 @@
         {{ form.as_p }}
         <input type="submit" value="Share" />
     </form>
+
+    <script type="text/javascript" charset="utf-8">
+        lexers = document.getElementById("id_lexer");
+        lexers.onchange = function() {
+            if (this.value=='more') {
+                location.href='/syntax/';
+            }
+        }
+
+        none = document.createElement("OPTION");
+        none.text = "--";
+        none.value = "";
+        lexers.options.add(none);
+
+        more = document.createElement("OPTION");
+        more.text = "More";
+        more.value = "more";
+        lexers.options.add(more);
+    </script>
 {% endblock %}
 
 {% block sidebar_extra %}
