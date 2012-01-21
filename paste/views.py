@@ -46,6 +46,25 @@ class AddSnippetView(CreateView):
     template_name = 'paste/paste.html'
     form_class = SnippetForm
 
+    def get_form(self, form_class):
+        form = form_class(**self.get_form_kwargs())
+
+        if len(self.request.GET):
+            lexer_name = self.request.GET.keys()[0].lower()
+            form.fields['lexer'].initial = lexer_name
+
+            for l in form.fields['lexer'].choices:
+                if lexer_name == l[0]:
+                    return form
+
+            try:
+                lexer = get_lexer_by_name(lexer_name)
+                form.fields['lexer'].choices.insert(0, (lexer_name, lexer.name))
+            except:
+                pass
+
+        return form
+
     def form_valid(self, form):
         obj = form.save(commit=False)
         if self.request.user.is_authenticated():
