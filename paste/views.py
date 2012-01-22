@@ -32,6 +32,19 @@ from apikeys.models import Key
 
 PASTE_KEY = 'paste'
 
+def get_lexer(request, exclude=None):
+    keys = request.GET.keys()
+
+    if exclude:
+        for x in exclude:
+            if x in keys:
+                keys.remove(x)
+
+    if len(keys):
+        return keys[0].lower()
+
+    return None
+
 class SyntaxView(TemplateView):
     template_name = 'paste/syntax_list.html'
 
@@ -61,8 +74,20 @@ class AddSnippetView(CreateView):
     def get_form(self, form_class):
         form = form_class(**self.get_form_kwargs())
 
-        if len(self.request.GET):
-            lexer_name = self.request.GET.keys()[0].lower()
+        if 'fork' in self.request.GET:
+            slug = self.request.GET['fork']
+
+            queryset = Snippet.objects.filter(slug=slug).exclude(expires__lte=datetime.datetime.now())
+
+            try:
+                object = queryset.get()
+            except ObjectDoesNotExist:
+                raise Http404('No snippet named {}'.format(slug))
+
+            form.fields['content'].initial = object.content
+
+        lexer_name = get_lexer(self.request, ['fork'])
+        if lexer_name:
             form.fields['lexer'].initial = lexer_name
 
             for l in form.fields['lexer'].choices:
