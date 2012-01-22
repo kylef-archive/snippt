@@ -110,3 +110,8 @@ form.pform  button::-moz-focus-inner, input::-moz-focus-inner { border: 0; paddi
     font-weight: normal;
     font-style: italic;
 }
+
+img.avatar {
+    border-radius: 5px;
+}
+
