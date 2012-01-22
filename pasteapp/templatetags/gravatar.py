@@ -23,10 +23,9 @@ def gravatar(email, size=48):
     
     default = 'identicon'
     
-    if email != '':
-        return "http://www.gravatar.com/avatar.php?" + urllib.urlencode({
-            'gravatar_id': hashlib.md5(email).hexdigest(), 
-            'size': str(size) })
-    else:
-        return default
+    return "http://www.gravatar.com/avatar.php?" + urllib.urlencode({
+        'd': 'identicon',
+        'gravatar_id': hashlib.md5(email).hexdigest(),
+        'size': str(size)
+    })
 
