@@ -66,7 +66,7 @@ class DeleteSnippetView(DeleteView):
         if self.object.author == request.user:
             self.object.delete()
             return HttpResponseRedirect(self.get_success_url())
-        return HttpResponseRedirect(self.object.get_absolute_url() + '?g')
+        return HttpResponseRedirect(self.object.get_absolute_url() + '/')
 
 class AddSnippetView(CreateView):
     template_name = 'paste/paste.html'
@@ -199,7 +199,7 @@ class SnippetView(DetailView):
     def get(self, request, *args, **kwargs):
         self.content = self.get_content()
 
-        if len(self.request.GET):
+        if len(self.request.GET) or request.path.endswith('/'):
             return super(SnippetView, self).get(request, *args, **kwargs)
 
         return HttpResponse(self.content, content_type='text/plain; charset=UTF-8')

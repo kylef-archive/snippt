@@ -45,7 +45,7 @@
     <h3>Recent Snippets</h3>
     <ul>
       {% for paste in user.snippet_set.recent %}
-        <li><a href="{{ paste.get_absolute_url }}?g">{{ paste }}</a></li>
+        <li><a href="{{ paste.get_absolute_url }}/">{{ paste }}</a></li>
       {% endfor %}
     </ul>
   {% endif %}
