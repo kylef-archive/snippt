@@ -146,6 +146,7 @@ INSTALLED_APPS = (
     'gunicorn',
     'socialregistration',
     'socialregistration.contrib.openid',
+    'south',
 )
 
 # A sample logging configuration. The only tangible logging
