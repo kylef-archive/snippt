@@ -1,5 +1,6 @@
 import difflib
 import datetime
+import textwrap
 
 from pygments import highlight
 from pygments.lexers import *
@@ -160,10 +161,15 @@ class SnippetView(DetailView):
         return object
 
     def get_content(self):
-        return self.get_object().content
+        content = self.get_object().content
+
+        if 'wrap' in self.request.GET:
+            content = '\n'.join(['\n'.join(textwrap.wrap(line, 80)) for line in content.splitlines()])
+
+        return content
 
     def get_processed_content(self):
-        self.lexer_name = self.request.GET.keys()[0].lower()
+        self.lexer_name = get_lexer(self.request, ['wrap'])
 
         if Markdown and self.lexer_name in ('markdown', 'md'):
             return mark_safe(Markdown(safe_mode=True, extensions=('codehilite',)).convert(self.content))
