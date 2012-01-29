@@ -12,6 +12,7 @@ class SnippetManager(models.Manager):
         return self.not_expired().order_by('-published')[:limit]
 
 class Snippet(models.Model):
+    title = models.CharField(max_length=255, blank=True)
     slug = models.CharField(max_length=32, blank=True)
     content = models.TextField()
 

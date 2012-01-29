@@ -1,11 +1,17 @@
 {% extends "base.html" %}
 
+{% block title %}Snippet {{ object }}{% endblock %}
+
 {% block content %}
     {{ processed_content }}
 {% endblock %}
 
 {% block sidebar %}
     <h3>Snippet {{ object }}</h3>
+
+  {% if object.title %}
+    <p>{{ object.title }}</p>
+  {% endif %}
 
     {% ifequal object.author user %}
       <form action="{{ object.get_absolute_url }}/delete/" method="post" accept-charset="utf-8">

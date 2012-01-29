@@ -87,12 +87,13 @@ form.pform  p input { padding: 4px; width: 200px; font-size: 14px; border: 1px s
 form.pform  p textarea { padding: 4px; width: 500px; height: 300px; font-size: 14px; border: 1px solid #ddd; }
 form.pform  p input:hover { border: 1px solid #245d85; }
 form.pform  p textarea:hover { border: 1px solid #245d85; }
-form.pform  input { margin-left: 113px; }
+form.pform  input[type="submit"] { margin-left: 113px; }
 form.pform  label {
     font-size: 14px;
 }
 form.pform  textarea { overflow: auto; vertical-align: top; resize: vertical; }
 form.pform  button::-moz-focus-inner, input::-moz-focus-inner { border: 0; padding: 0; }
+label[for="id_title"] { margin-top: 7px; }
 
 .errorlist {
     color: #ab2a2a;
