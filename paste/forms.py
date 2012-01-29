@@ -51,7 +51,7 @@ class SnippetForm(forms.ModelForm):
 
     class Meta:
         model = Snippet
-        fields = ('title', 'content')
+        fields = ('title', 'content', 'private')
 
     def save(self, *args, **kwargs):
         # Add expire datestamp
