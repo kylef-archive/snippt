@@ -12,6 +12,7 @@ urlpatterns = patterns('',
     url('^(?P<slug>[\w\d]+)/delete/$', DeleteSnippetView.as_view()),
     url('^(?P<a>[\w\d]+)\.\.\.(?P<b>[\w\d]+)$', DiffView.as_view()),
     url('^$', IndexView.as_view()),
+    url('^u/(?P<slug>[\w\d]+)/$', UserView.as_view()),
     url(r'^social/', include('socialregistration.urls',
         namespace = 'socialregistration')),
     # Examples:

@@ -25,6 +25,7 @@ from django.views.generic import TemplateView, DetailView, CreateView, DeleteVie
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.contrib.sites.models import Site
+from django.contrib.auth.models import User
 
 from paste.models import Snippet
 from paste.forms import SnippetForm
@@ -45,6 +46,12 @@ def get_lexer(request, exclude=None):
         return keys[0].lower()
 
     return None
+
+
+class UserView(DetailView):
+    model = User
+    slug_field = 'username'
+    template_name = 'paste/user_detail.html'
 
 class SyntaxView(TemplateView):
     template_name = 'paste/syntax_list.html'

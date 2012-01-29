@@ -11,6 +11,9 @@ class SnippetManager(models.Manager):
     def recent(self, limit=5):
         return self.not_expired().order_by('-published')[:limit]
 
+    def public(self):
+        return self.not_expired().filter(private=False)
+
 class Snippet(models.Model):
     title = models.CharField(max_length=255, blank=True)
     slug = models.CharField(max_length=32, blank=True)

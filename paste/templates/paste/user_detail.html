@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block head %}paste{% endblock %}
+
+{% block title %}{{ object }}{% endblock %}
+
+{% block content %}
+    <h1>Public snippet for {{ object }}</h1>
+
+    <ul>
+      {% for snippet in object.snippet_set.public %}
+        <li><a href="{{ snippet.get_absolute_url }}/">{{ snippet }}</a>{% if snippet.title %} ({{ snippet.title }}){% endif %}</li>
+      {% endfor %}
+    </ul>
+{% endblock %}
+
