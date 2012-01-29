@@ -4,6 +4,9 @@ import random
 from django.db import models
 from django.contrib.auth.models import User
 
+class SnippetManager(models.Manager):
+    def recent(self, limit=5):
+        return self.order_by('-published')[:limit]
 
 class Snippet(models.Model):
     slug = models.CharField(max_length=32, blank=True)
@@ -13,6 +16,8 @@ class Snippet(models.Model):
     private = models.BooleanField(default=True)
     published = models.DateTimeField(blank=True)
     expires = models.DateTimeField(blank=True, null=True)
+
+    objects = SnippetManager()
 
     def __unicode__(self):
         return self.slug

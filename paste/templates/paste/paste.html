@@ -40,4 +40,13 @@
         <li>User accounts</li>
         <li><a href="/man" title="manpage for snippt">CLI pasting</a></li>
     </ul>
+
+  {% if user.is_authenticated %}
+    <h3>Recent Snippets</h3>
+    <ul>
+      {% for paste in user.snippet_set.recent %}
+        <li><a href="{{ paste.get_absolute_url }}?g">{{ paste }}</a></li>
+      {% endfor %}
+    </ul>
+  {% endif %}
 {% endblock %}
