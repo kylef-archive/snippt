@@ -5,8 +5,11 @@ from django.db import models
 from django.contrib.auth.models import User
 
 class SnippetManager(models.Manager):
+    def not_expired(self):
+        return self.exclude(expires__lte=datetime.datetime.now())
+
     def recent(self, limit=5):
-        return self.order_by('-published')[:limit]
+        return self.not_expired().order_by('-published')[:limit]
 
 class Snippet(models.Model):
     slug = models.CharField(max_length=32, blank=True)
