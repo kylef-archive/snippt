@@ -8,6 +8,9 @@ class SnippetManager(models.Manager):
     def not_expired(self):
         return self.exclude(expires__lte=datetime.datetime.now())
 
+    def expired(self):
+        return self.filter(expires__lte=datetime.datetime.now())
+
     def recent(self, limit=5):
         return self.not_expired().order_by('-published')[:limit]
 
