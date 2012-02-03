@@ -85,8 +85,6 @@ form.pform  fieldset { margin: 0; padding: 0; }
 form.pform  p label { float: left; padding-right: 10px; width: 100px; font-weight: bold; text-align: right; }
 form.pform  p input { padding: 4px; width: 200px; font-size: 14px; border: 1px solid #eee; }
 form.pform  p textarea { padding: 4px; width: 500px; height: 300px; font-size: 14px; border: 1px solid #ddd; }
-form.pform  p input:hover { border: 1px solid #245d85; }
-form.pform  p textarea:hover { border: 1px solid #245d85; }
 form.pform  input[type="submit"] { margin-left: 113px; }
 form.pform  label {
     font-size: 14px;
@@ -94,6 +92,14 @@ form.pform  label {
 form.pform  textarea { overflow: auto; vertical-align: top; resize: vertical; }
 form.pform  button::-moz-focus-inner, input::-moz-focus-inner { border: 0; padding: 0; }
 label[for="id_title"] { margin-top: 7px; }
+
+input, textarea, input:hover, textarea:hover {
+    outline: none;
+}
+
+form.pform input:focus, form.pform textarea:focus, form.pform input:hover, form.pform textarea:hover {
+    border: 1px solid #245d85;
+}
 
 .errorlist {
     color: #ab2a2a;
