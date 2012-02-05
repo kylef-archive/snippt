@@ -138,6 +138,9 @@ class IndexView(AddSnippetView):
         snippet = Snippet(content=request.POST[PASTE_KEY], author=author)
         snippet.save()
 
+        if 'HTTP_HOST' in request.META:
+            return HttpResponse('http://%s/%s\n' % (request.META['HTTP_HOST'], snippet.slug))
+
         site = Site.objects.get_current()
 
         return HttpResponse('http://%s/%s\n' % (site.domain, snippet.slug))
