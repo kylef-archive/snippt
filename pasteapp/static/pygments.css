@@ -1,3 +1,16 @@
+table.tabletable {
+    margin:0;
+    padding:0;
+}
+
+table.tabletable td {
+    padding: 0 10px 0 0 !important;
+}
+
+.linenodiv, .linenodiv a {
+    color: #E1E1E1;
+}
+
 .hll { background-color: #ffffcc }
 .c { color: #408080; font-style: italic } /* Comment */
 .err { border: 1px solid #FF0000 } /* Error */

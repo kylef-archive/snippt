@@ -202,7 +202,9 @@ class SnippetView(DetailView):
                 lexer = PythonLexer()
 
         try:
-            return mark_safe(highlight(self.content,  lexer, HtmlFormatter()))
+            return mark_safe(highlight(self.content,  lexer,
+                HtmlFormatter(linenos='table', cssclass='table',
+                    anchorlinenos=True, lineanchors='l')))
         except:
             return escape(self.content)
 
