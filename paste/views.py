@@ -116,6 +116,8 @@ class AddSnippetView(CreateView):
             obj.author = self.request.user
         obj.save()
 
+        if form.cleaned_data.get('lexer') == 'g':
+            return HttpResponseRedirect(obj.get_absolute_url() + '/')
         return HttpResponseRedirect(obj.get_absolute_url() + '?' + form.cleaned_data.get('lexer'))
 
 class IndexView(AddSnippetView):
