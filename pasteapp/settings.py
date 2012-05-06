@@ -116,6 +116,7 @@ TEMPLATE_DIRS = (
 
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
+    'django_browserid.auth.BrowserIDBackend',
     'socialregistration.contrib.openid.auth.OpenIDAuth',
 )
 
@@ -126,7 +127,8 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.media",
     "django.core.context_processors.static",
     "django.core.context_processors.request",
-    "django.contrib.messages.context_processors.messages"
+    "django.contrib.messages.context_processors.messages",
+    'django_browserid.context_processors.browserid_form',
 )
 
 INSTALLED_APPS = (
@@ -147,6 +149,7 @@ INSTALLED_APPS = (
     'socialregistration',
     'socialregistration.contrib.openid',
     'south',
+    'django_browserid',
 )
 
 # A sample logging configuration. The only tangible logging
@@ -175,3 +178,6 @@ LOGGING = {
 LOGIN_REDIRECT_URL = '/'
 LOGIN_URL = '/social/logout/'
 LOGOUT_URL = '/'
+
+#DOMAIN = 'snippt.herokuapp.com'
+BROWSERID_CREATE_USER = True

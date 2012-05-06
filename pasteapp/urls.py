@@ -13,6 +13,7 @@ urlpatterns = patterns('',
     url('^(?P<a>[\w\d]+)\.\.\.(?P<b>[\w\d]+)$', DiffView.as_view()),
     url('^$', IndexView.as_view()),
     url('^u/(?P<slug>[\w\d]+)/$', UserView.as_view()),
+    url(r'^browserid/', include('django_browserid.urls')),
     url(r'^social/', include('socialregistration.urls',
         namespace = 'socialregistration')),
     # Examples:
