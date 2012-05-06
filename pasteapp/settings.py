@@ -117,7 +117,6 @@ TEMPLATE_DIRS = (
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
     'django_browserid.auth.BrowserIDBackend',
-    'socialregistration.contrib.openid.auth.OpenIDAuth',
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (
@@ -146,8 +145,6 @@ INSTALLED_APPS = (
     'paste',
     'apikeys',
     'gunicorn',
-    'socialregistration',
-    'socialregistration.contrib.openid',
     'south',
     'django_browserid',
 )
