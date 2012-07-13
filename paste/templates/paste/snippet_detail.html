@@ -16,7 +16,7 @@
     {% ifequal object.author user %}
       <form action="{{ object.get_absolute_url }}/delete/" method="post" accept-charset="utf-8">
         {% csrf_token %}
-        <p><input type="submit" value="Delete snippet &rarr;"></p>
+        <p><input type="submit" value="Delete snippet &rarr;" class="btn btn-danger"></p>
       </form>
     {% endifequal %}
 
