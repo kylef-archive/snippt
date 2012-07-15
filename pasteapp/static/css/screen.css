@@ -2,10 +2,9 @@ article, aside, details, figcaption, figure, footer, header, hgroup, nav, sectio
 html {overflow-y: scroll;}
 body {
     color: #323232;
-    /*
     font-weight:500; font-style:normal;
     font-family: Myriad Pro;
-    */
+    font-family: 'Helvetica Neue', Helvetica, Arial, Geneva, sans-serif;
     margin: 0;
     padding: 0;
 }
@@ -105,19 +104,6 @@ form.pform input:focus, form.pform textarea:focus, form.pform input:hover, form.
 
 .errorlist {
     color: #ab2a2a;
-}
-
-#openid form {
-    margin-top: 10px;
-}
-
-#openid form input#provider { border: 1px solid #245d85; }
-#openid form input { font-size: 100%;}
-
-#openid h3 a {
-    font-size: 14px;
-    font-weight: normal;
-    font-style: italic;
 }
 
 img.avatar {
