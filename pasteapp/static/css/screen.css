@@ -2,8 +2,10 @@ article, aside, details, figcaption, figure, footer, header, hgroup, nav, sectio
 html {overflow-y: scroll;}
 body {
     color: #323232;
+    /*
     font-weight:500; font-style:normal;
     font-family: Myriad Pro;
+    */
     margin: 0;
     padding: 0;
 }
