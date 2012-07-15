@@ -9,15 +9,15 @@
         <link rel="stylesheet" href="{{ STATIC_URL }}css/pygments.css" type="text/css" media="all" charset="utf-8">
     </head>
 
-    <body id="{% block head %}{% endblock %}">
+    <body id="{% block body_id %}{% endblock %}">
         <div class="navbar navbar-fixed-top">
             <div class="navbar-inner">
-                <div class="container{% if fluid %}-fluid{% endif %}">
+                <div class="{% block nav_class %}container{% endblock %}">
                     <a href="/" class="brand">Snippt</a>
 
                     <ul class="nav">
                         <li><a href="/">New Snippt</a></li>
-                        <li><a href="/changelog/">Changelog</a></li>
+                        <li><a href="/changelog/">Change Log</a></li>
                     </ul>
 
                   {% if request.user.is_authenticated %}
@@ -49,21 +49,15 @@
             </div>
         </div>
 
-        <div class="container{% if fluid %}-fluid{% endif %}">
-            <div class="row{% if fluid %}-fluid{% endif %}">
-                <div class="{% if fluid %}span9{% endif %} content-wrapper">
+      {% block wrapper %}
+        <div class="container">
+            <div class="row">
+                <div class="content-wrapper">
                     {% block content %}{% endblock %}
                 </div>
-
-              {% if fluid %}
-                <aside class="span3">
-                    <div class="content-wrapper">
-                        {% block sidebar %}{% endblock %}
-                    </div>
-                </aside>
-              {% endif %}
             </div>
         </div>
+      {% endblock %}
 
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>
         <script src="{{ STATIC_URL }}js/bootstrap.min.js" type="text/javascript"></script>

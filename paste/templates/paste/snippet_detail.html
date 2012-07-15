@@ -2,61 +2,68 @@
 
 {% block title %}Snippet {{ object }}{% endblock %}
 
-{% block content %}
-    {{ processed_content }}
+{% block nav_class %}container-fluid{% endblock %}
+
+{% block wrapper %}
+    <div class="container-fluid">
+        <div class="row-fluid">
+            <div class="span9 content-wrapper">
+                 {{ processed_content }}
+            </div>
+
+            <aside class="span3">
+                <div class="content-wrapper">
+                    <h3>{{ object }}</h3>
+
+                    <ul>
+                        {% if object.author %}
+                        {% load gravatar %}
+                        <li>By {{ object.author }}
+                        <p><img src="{% gravatar object.author.email 70 %}" border="0" alt="" class="avatar" /></p></li>
+                        {% endif %}
+
+                        {% if object.published %}
+                        <li>Published: {{ object.published|date }}</li>
+                        {% endif %}
+
+                        {% if object.expires %}
+                        <li>Expires: {{ object.expires|date }}</li>
+                        {% endif %}
+                        <li><a href="/?fork={{ object.slug }}">Fork</a></li>
+                    </ul>
+
+                    <h3>View Options</h3>
+
+                    <ul>
+                        <li><a href="/{{ object.slug }}">Raw</a></li>
+
+                        {% ifequal lexer "rrst" %}
+                        <li><a href="/{{ object.slug }}?rst">RST Syntax</a></li>
+                        {% endifequal %}
+
+                        {% ifequal lexer "rst" %}
+                        <li><a href="/{{ object.slug }}?rrst">Render RST</a></li>
+                        {% endifequal %}
+                    </ul>
+
+                    {% if a %}
+                    <h3>Diff</h3>
+
+                    <ul>
+                        <li><a href="{{ a.get_absolute_url }}/">{{ a }}</a></li>
+                        <li><a href="{{ b.get_absolute_url }}/">{{ b }}</a></li>
+                    </ul>
+                    {% endif %}
+
+                    {% ifequal object.author user %}
+                    <form action="{{ object.get_absolute_url }}/delete/" method="post" accept-charset="utf-8">
+                        {% csrf_token %}
+                        <p><input type="submit" value="Delete snippet" class="btn btn-danger"></p>
+                    </form>
+                    {% endifequal %}
+                </div>
+            </aside>
+        </div>
+    </div>
 {% endblock %}
 
-{% block sidebar %}
-    <h3>Snippet {{ object }}</h3>
-
-  {% if object.title %}
-    <p>{{ object.title }}</p>
-  {% endif %}
-
-    {% ifequal object.author user %}
-      <form action="{{ object.get_absolute_url }}/delete/" method="post" accept-charset="utf-8">
-        {% csrf_token %}
-        <p><input type="submit" value="Delete snippet &rarr;" class="btn btn-danger"></p>
-      </form>
-    {% endifequal %}
-
-    <ul>
-      {% if object.author %}
-        {% load gravatar %}
-        <li>By {{ object.author }}
-        <p><img src="{% gravatar object.author.email 70 %}" border="0" alt="" class="avatar" /></p></li>
-      {% endif %}
-
-      {% if object.published %}
-        <li>Published: {{ object.published }}</li>
-      {% endif %}
-
-      {% if object.expires %}
-        <li>Expires: {{ object.expires }}</li>
-      {% endif %}
-        <li><a href="/?fork={{ object.slug }}">Fork</a></li>
-    </ul>
-
-    <h3>View Options</h3>
-
-    <ul>
-        <li><a href="/{{ object.slug }}">Raw</a></li>
-
-      {% ifequal lexer "rrst" %}
-        <li><a href="/{{ object.slug }}?rst">RST Syntax</a></li>
-      {% endifequal %}
-
-      {% ifequal lexer "rst" %}
-        <li><a href="/{{ object.slug }}?rrst">Render RST</a></li>
-      {% endifequal %}
-    </ul>
-
-    {% if a %}
-        <h3>Diff</h3>
-
-        <ul>
-            <li><a href="{{ a.get_absolute_url }}/">{{ a }}</a></li>
-            <li><a href="{{ b.get_absolute_url }}/">{{ b }}</a></li>
-        </ul>
-    {% endif %}
-{% endblock %}

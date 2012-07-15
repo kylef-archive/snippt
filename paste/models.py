@@ -30,7 +30,7 @@ class Snippet(models.Model):
     objects = SnippetManager()
 
     def __unicode__(self):
-        return self.slug
+        return self.title or self.slug
 
     def get_absolute_url(self):
         return '/' + self.slug
