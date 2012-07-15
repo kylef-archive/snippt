@@ -7,9 +7,26 @@
 {% block content %}
     <h1>New Snippet</h1>
 
-    <form class="pform" action="/paste/" method="post">{% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" value="Share" />
+    <form class="form-horizontal" action="/paste/" method="post">{% csrf_token %}
+        <fieldset>
+          {% for field in form %}
+            <div class="control-group{% if field.errors %} error{% endif %}">
+                <label for="{{ field.auto_id }}" class="control-label">
+                    {{ field.label|safe }}
+                </label>
+                <div class="controls">
+                    {{ field }}
+                  {% if field.help_text %}
+                    <p class="help-block">{{ field.help_text }}</p>
+                  {% endif %}
+                </div>
+            </div>
+          {% endfor %}
+
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">Share</button>
+            </div>
+        </fieldset>
     </form>
 
     <script type="text/javascript" charset="utf-8">

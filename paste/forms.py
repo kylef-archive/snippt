@@ -49,6 +49,12 @@ class SnippetForm(forms.ModelForm):
         label='Syntax',
     )
 
+    content = forms.CharField(widget=forms.Textarea(attrs={
+        'cols': 40,
+        'rows': 15,
+        'class': 'input-xxlarge'
+    }))
+
     class Meta:
         model = Snippet
         fields = ('title', 'content', 'private')
