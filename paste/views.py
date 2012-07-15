@@ -161,6 +161,7 @@ class SnippetView(DetailView):
         context['content'] = self.content
         context['processed_content'] = self.get_processed_content()
         context['lexer'] = self.lexer_name
+        context['fluid'] = True
 
         return context
 

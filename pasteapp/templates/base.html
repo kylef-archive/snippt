@@ -1,4 +1,4 @@
-<html>
+<html lang="en">
     <head>
         <meta http-equiv="content-type" content="text/html; charset=utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,40 +10,59 @@
     </head>
 
     <body id="{% block head %}{% endblock %}">
-        <section>
-            {% block content %}{% endblock %}
-        </section>
+        <div class="navbar navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container{% if fluid %}-fluid{% endif %}">
+                    <a href="/" class="brand">Snippt</a>
 
-        <aside>
-          {% block sidebar %}
-            {% if request.user.is_authenticated %}
-              <h3>Welcome {{ user }}</h3>
+                    <ul class="nav">
+                        <li><a href="/">New Snippt</a></li>
+                        <li><a href="/changelog/">Changelog</a></li>
+                    </ul>
 
-              {% load gravatar %}
-              <p><img src="{% gravatar user.email 50 %}" border="0" alt="" /></p>
+                  {% if request.user.is_authenticated %}
+                    <div class="btn-group pull-right">
+                        <a class="btn btn-primary" href="">{{ user }}</a>
+                        <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="{% url logout %}">Logout</a></li>
+                        </ul>
+                    </div>
+                  {% else %}
+                    <a href="#" id="browserid" title="Sign-in with BrowserID"
+                        class="browserid pull-right" style="padding-top: 8px;">
+                        <img src="https://browserid.org/i/sign_in_blue.png"
+                        alt="Sign in" />
+                    </a>
+                    <form method="POST" action="{% url browserid_verify %}">
+                        {% csrf_token %}
+                        {{ browserid_form.as_p }}
+                    </form>
+                  {% endif %}
+                </div> 
+            </div>
+        </div>
 
-              <a href="{% url logout %}">Logout</a>
-            {% else %}
-              <h3>Sign in with BrowserID</h3>
+        <div class="container{% if fluid %}-fluid{% endif %}">
+            <div class="row{% if fluid %}-fluid{% endif %}">
+                <div class="{% if fluid %}span9{% endif %} content-wrapper">
+                    {% block content %}{% endblock %}
+                </div>
 
-              <a id="browserid" href="#">
-                  <img src="https://browserid.org/i/sign_in_blue.png" alt="Sign in"/>
-              </a>
+              {% if fluid %}
+                <aside class="span3">
+                    <div class="content-wrapper">
+                        {% block sidebar %}{% endblock %}
+                    </div>
+                </aside>
+              {% endif %}
+            </div>
+        </div>
 
-              <form method="POST" action="{% url browserid_verify %}">
-                {% csrf_token %}
-                {{ browserid_form.as_p }}
-              </form>
-
-              {{ browserid_form.media }}
-            {% endif %}
-
-            {% block sidebar_extra %}
-
-            {% endblock %}
-          {% endblock %}
-        </aside>
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>
+        <script src="{{ STATIC_URL }}js/bootstrap.min.js" type="text/javascript"></script>
       {% if not request.user.is_authenticated %}
         {{ browserid_form.media }}
       {% endif %}
