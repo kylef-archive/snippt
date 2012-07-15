@@ -7,6 +7,7 @@ admin.autodiscover()
 from paste.views import *
 
 urlpatterns = patterns('',
+    url('^logout/$', logout_view, name='logout'),
     url('^paste/$', AddSnippetView.as_view()),
     url('^syntax/$', SyntaxView.as_view()),
     url('^(?P<slug>[\w\d]+)/delete/$', DeleteSnippetView.as_view()),

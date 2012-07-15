@@ -26,6 +26,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.contrib.sites.models import Site
 from django.contrib.auth.models import User
+from django.contrib.auth import logout
 
 from paste.models import Snippet
 from paste.forms import SnippetForm
@@ -33,6 +34,10 @@ from paste.forms import SnippetForm
 from apikeys.models import Key
 
 PASTE_KEY = 'paste'
+
+def logout_view(request):
+    logout(request)
+    return HttpResponseRedirect('/')
 
 def get_lexer(request, exclude=None):
     keys = request.GET.keys()
