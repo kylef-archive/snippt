@@ -30,7 +30,14 @@
                             <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a href="{% url logout %}">Logout</a></li>
+                          {% if user.is_staff %}
+                            <li><a href="/admin/">
+                              <i class="icon-wrench"></i> Admin
+                            </a></li>
+                          {% endif %}
+                            <li><a href="{% url logout %}">
+                                <i class="icon-signout"></i> Logout
+                            </a></li>
                         </ul>
                     </div>
                   {% else %}
