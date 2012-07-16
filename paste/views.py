@@ -1,6 +1,7 @@
 import difflib
 import datetime
 import textwrap
+import re
 
 from pygments import highlight
 from pygments.lexers import *
@@ -34,6 +35,7 @@ from paste.forms import SnippetForm
 from apikeys.models import Key
 
 PASTE_KEY = 'paste'
+VIM_MODELINE_RE = re.compile(r'(vi|vim)\: (set )?(.+)\:?')
 
 def logout_view(request):
     logout(request)
@@ -189,6 +191,26 @@ class SnippetView(DetailView):
     def get_processed_content(self):
         self.lexer_name = get_lexer(self.request, ['wrap'])
 
+        m = VIM_MODELINE_RE.search(self.content)
+        if m:
+            modes = m.group(3)
+            if ':' in modes:
+                modes = modes.split(':')
+            else:
+                modes = modes.split(' ')
+
+            pairs = {}
+            for mode in modes:
+                if '=' in mode:
+                    k,v = mode.split('=')
+                    pairs[k] = v
+                else:
+                    pairs[mode] = None
+
+            if 'syntax' in pairs and (not self.lexer_name or
+                    self.lexer_name in ('g', 'guess')):
+                self.lexer_name = pairs['syntax']
+
         if Markdown and self.lexer_name in ('markdown', 'md'):
             return mark_safe(Markdown(safe_mode=True, extensions=('codehilite',)).convert(self.content))
 
@@ -199,6 +221,7 @@ class SnippetView(DetailView):
         try:
             if self.lexer_name in ('g', 'guess'):
                 lexer = guess_lexer(self.content)
+                self.lexer_name = lexer.name
             elif self.lexer_name:
                 lexer = get_lexer_by_name(self.lexer_name)
             else:
