@@ -30,6 +30,10 @@
                             <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu">
+                          {% for snippet in user.snippet_set.recent %}
+                            <li><a href="{{ snippet.get_absolute_url }}/">{{ snippet }}</a></li>
+                          {% endfor %}
+                            <li class="divider"></li>
                           {% if user.is_staff %}
                             <li><a href="/admin/">
                               <i class="icon-wrench"></i> Admin
