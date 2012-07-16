@@ -23,12 +23,10 @@
 
                   {% if request.user.is_authenticated %}
                     <div class="btn-group pull-right">
-                        <a class="btn btn-primary" href="">
-                            {% load gravatar %}
-                            <img src="{% gravatar user.email 20 %}" class="avatar" />
-                            {{ user }}
-                        </a>
                         <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">
+                            {% load gravatar %}
+                            <img src="{% gravatar user.email 16 %}" class="avatar" />
+                            {{ user }}
                             <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu">
