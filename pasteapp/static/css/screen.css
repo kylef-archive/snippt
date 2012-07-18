@@ -30,6 +30,12 @@ input[type="text"] {
     height: 28px;
 }
 
+#paste {
+    overflow: scroll;
+    width:74.468085099%;
+    *width:74.4148936096383%;
+}
+
 @media (max-width: 979px) {
     .content-wrapper {
         padding: 0 10px;
