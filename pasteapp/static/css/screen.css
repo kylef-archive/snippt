@@ -75,4 +75,7 @@ img.avatar {
 
 .changelog .row {
     margin-bottom: 20px;
+.modal form {
+    margin-bottom: 0;
 }
+
