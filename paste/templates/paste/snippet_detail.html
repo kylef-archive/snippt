@@ -5,65 +5,62 @@
 {% block nav_class %}container-fluid{% endblock %}
 
 {% block wrapper %}
+<div class="content-wrapper">
     <div class="container-fluid">
         <div class="row-fluid">
-            <div class="span9 content-wrapper" id="paste">
-                 {{ processed_content }}
+            <div class="span8">
+                <h1>
+                    {{ object }}
+                  {% if object.author %}
+                    {% load gravatar %}
+                    <small><a href="/u/{{ object.author }}/">
+                        <img width="20" heigt="20" src="{% gravatar object.author.email 20 %}"
+                            class="avatar" />
+                        {{ object.author }}
+                    </a></small>
+                  {% endif %}
+                </h1>
             </div>
 
-            <aside class="span3">
-                <div class="content-wrapper">
-                    <h3>{{ object }}</h3>
-
-                    <ul>
-                        {% if object.author %}
-                        {% load gravatar %}
-                        <li>By {{ object.author }}
-                        <p><img src="{% gravatar object.author.email 70 %}" border="0" alt="" class="avatar" /></p></li>
-                        {% endif %}
-
-                        {% if object.published %}
-                        <li>Published: {{ object.published|date }}</li>
-                        {% endif %}
-
-                        {% if object.expires %}
-                        <li>Expires: {{ object.expires|date }}</li>
-                        {% endif %}
-                        <li><a href="/?fork={{ object.slug }}">Fork</a></li>
-                    </ul>
-
-                    <h3>View Options</h3>
-
-                    <ul>
-                        <li><a href="/{{ object.slug }}">Raw</a></li>
-
-                        {% ifequal lexer "rrst" %}
-                        <li><a href="/{{ object.slug }}?rst">RST Syntax</a></li>
-                        {% endifequal %}
-
-                        {% ifequal lexer "rst" %}
-                        <li><a href="/{{ object.slug }}?rrst">Render RST</a></li>
-                        {% endifequal %}
-                    </ul>
-
-                    {% if a %}
-                    <h3>Diff</h3>
-
-                    <ul>
-                        <li><a href="{{ a.get_absolute_url }}/">{{ a }}</a></li>
-                        <li><a href="{{ b.get_absolute_url }}/">{{ b }}</a></li>
-                    </ul>
-                    {% endif %}
-
-                    {% ifequal object.author user %}
-                    <form action="{{ object.get_absolute_url }}/delete/" method="post" accept-charset="utf-8">
-                        {% csrf_token %}
-                        <p><input type="submit" value="Delete snippet" class="btn btn-danger"></p>
-                    </form>
-                    {% endifequal %}
+            <div class="span4">
+                <div class="btn-group pull-right">
+                    <a href="/?fork={{ object.slug }}" class="btn">Fork</a>
+                    <a href="{{ object.get_absolute_url }}" class="btn">Raw</a>
+                  {% ifequal object.author user %}
+                    <a href="#confirm-delete" data-toggle="modal" class="btn btn-danger">Delete</a>
+                  {% endifequal %}
                 </div>
-            </aside>
+            </div>
+        </div>
+
+        <div class="row-fluid">
+            <div id="paste">
+                {{ processed_content }}
+            </div>
         </div>
     </div>
+
+  {% ifequal object.author user %}
+    <div class="modal fade" id="confirm-delete">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">×</button>
+            <h3>Delete {{ object }}</h3>
+        </div>
+
+        <div class="modal-body">
+            <p>Confirm delete</p>
+        </div>
+
+        <div class="modal-footer">
+            <form action="{{ object.get_absolute_url }}/delete/" method="post" accept-charset="utf-8">
+                <a href="#" class="btn" data-dismiss="modal">Close</a>
+
+                {% csrf_token %}
+                <input type="submit" value="Delete" class="btn btn-danger">
+            </form>
+        </div>
+    </div>
+  {% endifequal %}
+</div>
 {% endblock %}
 
