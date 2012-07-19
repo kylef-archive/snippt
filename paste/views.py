@@ -103,17 +103,24 @@ class AddSnippetView(CreateView):
 
         lexer_name = get_lexer(self.request, ['fork'])
         if lexer_name:
+            try:
+                lexer = get_lexer_by_name(lexer_name)
+            except:
+                form.fields['lexer'].initial = lexer_name
+                return form
+
+            try:
+                lexer_name = lexer.aliases[0]
+            except:
+                pass
+
             form.fields['lexer'].initial = lexer_name
 
             for l in form.fields['lexer'].choices:
                 if lexer_name == l[0]:
                     return form
 
-            try:
-                lexer = get_lexer_by_name(lexer_name)
-                form.fields['lexer'].choices.insert(0, (lexer_name, lexer.name))
-            except:
-                pass
+            form.fields['lexer'].choices.insert(0, (lexer_name, lexer.name))
 
         return form
 
