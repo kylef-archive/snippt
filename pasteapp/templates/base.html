@@ -25,7 +25,8 @@
                     <div class="btn-group pull-right">
                         <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">
                             {% load gravatar %}
-                            <img src="{% gravatar user.email 16 %}" class="avatar" />
+                            <img src="{% gravatar user.email 16 %}"
+                                class="avatar" height="16" width="16" />
                             {{ user }}
                             <span class="caret"></span>
                         </a>
