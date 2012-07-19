@@ -64,7 +64,10 @@ STATIC_ROOT = ''
 
 # URL prefix for static files.
 # Example: "http://media.lawrence.com/static/"
-STATIC_URL = 'http://dl.dropbox.com/u/2325654/paste/'
+if DEBUG:
+    STATIC_URL = '/static/'
+else:
+    STATIC_URL = 'http://dl.dropbox.com/u/2325654/paste/'
 
 # URL prefix for admin static files -- CSS, JavaScript and images.
 # Make sure to use a trailing slash.
