@@ -17,4 +17,6 @@ To use the command line tool, use `<command> | curl -F 'paste=<-' http://s.drk.s
 
 You can also add that command to your bash/zsh alias file so that you can use it easier:
 
-Simply add `alias snippt="curl -F 'paste=<-' http://s.drk.sc". This will allow you to use `<command> | snippt`
+Simply add `alias snippt="curl -F 'paste=<-' http://s.drk.sc"`. This will allow you to use `<command> | snippt`.
+
+See [here](http://s.drk.sc/man/) for more information.
