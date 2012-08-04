@@ -29,6 +29,36 @@ h1 small {
 h1 small img {
     margin-top: -5px;
 }
+
+.brand {
+    color: #000;
+}
+
+.marketing h1, .marketing h2 {
+    font-weight: 300;
+}
+
+.marketing h1 {
+    margin: 36px 0 27px;
+    text-align: center;
+    font-size: 40px;
+}
+
+.marketing .row {
+    margin-bottom: 9px;
+}
+
+.changelog h1, .changelog h2, .changelog h3 {
+    font-weight: 300;
+}
+
+.changelog h1 {
+    margin: 37px 0 27px;
+    font-size: 40px;
+}
+
+.changelog .row {
+    margin-bottom: 20px;
 }
 
 @media (max-width: 979px) {
@@ -44,6 +74,10 @@ h1 small img {
     }
 }
 
+@media (max-width: 768px) {
+    .marketing h1, .changelog h1 {
+        margin: 5px 0 27px;
+    }
 }
 
 table, table td, table th {
@@ -73,8 +107,6 @@ img.avatar {
     border-radius: 2px;
 }
 
-.changelog .row {
-    margin-bottom: 20px;
 .modal form {
     margin-bottom: 0;
 }

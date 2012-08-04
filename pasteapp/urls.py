@@ -7,6 +7,8 @@ admin.autodiscover()
 from paste.views import *
 
 urlpatterns = patterns('',
+    url('^changelog/$', TemplateView.as_view(template_name='changelog.html'),
+        name='changelog'),
     url('^logout/$', logout_view, name='logout'),
     url('^paste/$', AddSnippetView.as_view()),
     url('^syntax/$', SyntaxView.as_view()),

@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block title %}Change Log - {{ block.super }}{% endblock %}
+
+{% block wrapper %}
+<div class="container content-wrapper changelog">
+    <h1>Change Log</h1>
+<!--
+    <div class="row">
+        <div class="span4">
+            <h3>July 16, 2012</h2>
+        </div>
+
+        <div class="span8">
+            <h2>Revision 3</h2>
+            <ul>
+            </ul>
+        </div>
+    </div>
+-->
+    <div class="row">
+        <div class="span4">
+            <h3>July 16, 2012</h2>
+        </div>
+
+        <div class="span8">
+            <h2>Revision 2</h2>
+            <ul>
+                <li>Brand new design based on twitter bootstrap.</li>
+                <li>Add support for 20 more lexters.</li>
+                <li>Fix some issues with LaTex, ObjC, reST, and Python 3</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="span4">
+            <h3>May 6, 2012</h2>
+        </div>
+
+        <div class="span8">
+            <h2>Revision 1</h2>
+            <ul>
+                <li>Support BrowserID for logins.</li>
+                <li>Drop support for OpenID</li>
+                <li>Add a title field to pastes</li>
+                <li>Allow adding "public/private" pastes</li>
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}

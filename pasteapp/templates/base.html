@@ -2,7 +2,7 @@
     <head>
         <meta http-equiv="content-type" content="text/html; charset=utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>{% block title %}Paste{% endblock %}</title>
+        <title>{% block title %}Snippt{% endblock %}</title>
         <link rel="stylesheet" href="{{ STATIC_URL }}css/bootstrap.min.css" type="text/css" media="screen" charset="utf-8">
         <link rel="stylesheet" href="{{ STATIC_URL }}css/bootstrap-responsive.min.css" type="text/css" media="screen" charset="utf-8">
         <link rel="stylesheet" href="{{ STATIC_URL }}css/font-awesome.css">
@@ -18,7 +18,7 @@
 
                     <ul class="nav">
                         <li><a href="/">New Snippt</a></li>
-                        <li><a href="/changelog/">Change Log</a></li>
+                        <li><a href="{% url changelog %}">Change Log</a></li>
                     </ul>
 
                   {% if request.user.is_authenticated %}
