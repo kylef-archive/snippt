@@ -26,6 +26,7 @@
                 <div class="btn-group pull-right">
                     <a href="/?fork={{ object.slug }}" class="btn">Fork</a>
                     <a href="{{ object.get_absolute_url }}" class="btn">Raw</a>
+                    <a href="#share" data-toggle="modal" class="btn">Share</a>
                   {% ifequal object.author user %}
                     <a href="#confirm-delete" data-toggle="modal" class="btn btn-danger">Delete</a>
                   {% endifequal %}
