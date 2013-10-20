@@ -3,6 +3,7 @@ from django import forms
 from paste.models import Snippet
 
 EXPIRE_CHOICES = (
+    (600,        'In 10 minutes'),
     (3600,       'In one hour'),
     (3600*24,    'In one day'),
     (3600*24*7,  'In one week'),
