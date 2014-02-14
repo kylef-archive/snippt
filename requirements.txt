@@ -4,6 +4,5 @@ Pygments==1.5
 South==0.7.3
 docutils==0.8.1
 gunicorn==0.13.4
-httplib2==0.7.2
 psycopg2==2.4.4
 django-browserid==0.5
