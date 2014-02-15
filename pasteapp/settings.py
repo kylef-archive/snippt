@@ -38,6 +38,7 @@ TIME_ZONE = 'Europe/London'
 LANGUAGE_CODE = 'en-us'
 
 SITE_ID = 1
+SITE_URL = 'http://s.drk.sc'
 
 # If you set this to False, Django will make some optimizations so as not
 # to load the internationalization machinery.
@@ -128,7 +129,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.static",
     "django.core.context_processors.request",
     "django.contrib.messages.context_processors.messages",
-    'django_browserid.context_processors.browserid_form',
+    'django_browserid.context_processors.browserid',
 )
 
 INSTALLED_APPS = (

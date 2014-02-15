@@ -5,4 +5,4 @@ South==0.7.3
 docutils==0.8.1
 gunicorn==0.13.4
 psycopg2==2.4.4
-django-browserid==0.5
+django-browserid==0.9

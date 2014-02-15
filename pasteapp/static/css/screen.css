@@ -111,3 +111,12 @@ img.avatar {
     margin-bottom: 0;
 }
 
+.persona-button {
+    float: right;
+    margin-top: 7px;
+}
+
+.persona-button:hover {
+    color: #fff;
+}
+
