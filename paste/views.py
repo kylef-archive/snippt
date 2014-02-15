@@ -100,6 +100,7 @@ class AddSnippetView(CreateView):
                 raise Http404('No snippet named {}'.format(slug))
 
             form.fields['content'].initial = object.content
+            form.fields['parent'].initial = object
 
         lexer_name = get_lexer(self.request, ['fork'])
         if lexer_name:

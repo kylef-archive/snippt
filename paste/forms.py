@@ -55,10 +55,13 @@ class SnippetForm(forms.ModelForm):
         'rows': 15,
         'class': 'input-xxlarge'
     }))
+    parent = forms.ModelChoiceField(widget=forms.widgets.HiddenInput(),
+                                    queryset=Snippet.objects.all(),
+                                    empty_label="(None)", required=False)
 
     class Meta:
         model = Snippet
-        fields = ('title', 'content', 'private')
+        fields = ('title', 'content', 'private', 'parent',)
 
     def save(self, *args, **kwargs):
         # Add expire datestamp

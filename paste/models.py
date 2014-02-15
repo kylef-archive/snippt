@@ -26,6 +26,7 @@ class Snippet(models.Model):
     private = models.BooleanField(default=True)
     published = models.DateTimeField(blank=True)
     expires = models.DateTimeField(blank=True, null=True)
+    parent = models.ForeignKey('Snippet', blank=True, null=True)
 
     objects = SnippetManager()
 

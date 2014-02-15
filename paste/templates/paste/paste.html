@@ -10,17 +10,21 @@
     <form class="form-horizontal" action="/paste/" method="post">{% csrf_token %}
         <fieldset>
           {% for field in form %}
-            <div class="control-group{% if field.errors %} error{% endif %}">
-                <label for="{{ field.auto_id }}" class="control-label">
-                    {{ field.label|safe }}
-                </label>
-                <div class="controls">
-                    {{ field }}
-                  {% if field.help_text %}
-                    <p class="help-block">{{ field.help_text }}</p>
-                  {% endif %}
+            {% if not field.is_hidden %}
+                <div class="control-group{% if field.errors %} error{% endif %}">
+                    <label for="{{ field.auto_id }}" class="control-label">
+                        {{ field.label|safe }}
+                    </label>
+                    <div class="controls">
+                        {{ field }}
+                      {% if field.help_text %}
+                        <p class="help-block">{{ field.help_text }}</p>
+                      {% endif %}
+                    </div>
                 </div>
-            </div>
+            {% else %}
+                {{ field }}
+            {% endif %}
           {% endfor %}
 
             <div class="form-actions">
