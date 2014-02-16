@@ -2,7 +2,8 @@ Django==1.4.10
 Markdown==2.1.0
 Pygments==1.6
 South==0.7.3
+dj-database-url==0.2.2
+django-browserid==0.9
 docutils==0.8.1
 gunicorn==0.13.4
 psycopg2==2.4.4
-django-browserid==0.9
